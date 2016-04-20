@@ -90,10 +90,11 @@ typeSpecifier
 
 typeName
     :   'void'
-    |   'char'
-    |   'int'
-    |   'double'
-    |   'bul'
+    |   'Caracter'
+    |   'SONIDO'
+    |   'ENT'
+    |   'REAL'
+    |   'BUL'
     ;
 
 
