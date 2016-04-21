@@ -16,6 +16,7 @@ postfixExpression
 
 expression
     : assignmentExpression
+
     ;
 
 argumentExpressionList
@@ -72,7 +73,8 @@ logicalOrExpression
     ;
 
 assignmentExpression
-    :   unaryExpression assignmentOperator assignmentExpression
+    :   logicalOrExpression
+    |   unaryExpression assignmentOperator assignmentExpression
     ;
 
 assignmentOperator
@@ -211,5 +213,4 @@ Constant
    | VALSON
    | VALCAR
    ;
-
 
