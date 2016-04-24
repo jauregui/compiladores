@@ -230,18 +230,15 @@ class Binario{
 
 }
 
-import org.antlr.v4.runtime.*;
+public class MyVisitor extends JMLBaseVisitor<JMLNode> {
 
 
-public class MyVisitor extends SmallCBaseVisitor<SmallCNode> {
-
-
-@Override public SmallCNode visitExp(SmallCParser.ExpContext ctx)  {
+@Override public JMLNode visitExp(JMLParser.ExpContext ctx)  {
     if ( ctx.lexp().size() == 2) {
-        SmallCLexp lhs = (SmallCLexp) ctx.lexp(0).accept(this);
-        SmallCLexp rhs = (SmallCLexp) ctx.lexp(1).accept(this);
+        JMLLexp lhs = (JMLLexp) ctx.lexp(0).accept(this);
+        JMLLexp rhs = (JMLLexp) ctx.lexp(1).accept(this);
         String op = ctx.op.getText();
-        return new SmallCExp(lhs,rhs,op);
+        return new JMLExp(lhs,rhs,op);
     } else {
         visitLexp(ctx.lexp(0));
     }
@@ -249,12 +246,12 @@ public class MyVisitor extends SmallCBaseVisitor<SmallCNode> {
 
 }
 
-@Override public SmallCNode visitLexp(SmallCParser.LexpContext ctx) {
+@Override public JMLNode visitLexp(JMLParser.LexpContext ctx) {
     if ( ctx.term().size() == 2) {
-        SmallCTerm lhs = (SmallCTerm) ctx.term(0).accept(this);
-        SmallCTerm rhs = (SmallCTerm) ctx.term(1).accept(this);
+        JMLTerm lhs = (JMLTerm) ctx.term(0).accept(this);
+        JMLTerm rhs = (JMLTerm) ctx.term(1).accept(this);
         String op = ctx.op.getText();
-        return new SmallCLexp(lhs,rhs,op);
+        return new JMLLexp(lhs,rhs,op);
     } else {
         visitTerm(ctx.term(0));
     }
@@ -262,12 +259,12 @@ public class MyVisitor extends SmallCBaseVisitor<SmallCNode> {
 
 }
 
-@Override public SmallCNode visitTerm(SmallCParser.TermContext ctx) {
+@Override public JMLNode visitTerm(JMLParser.TermContext ctx) {
     if (ctx.factor().size() == 2) {
-        SmallCFactor lhs = (SmallCFactor) ctx.factor(0).accept(this);
-        SmallCFactor rhs = (SmallCFactor) ctx.factor(1).accept(this);
+        JMLFactor lhs = (JMLFactor) ctx.factor(0).accept(this);
+        JMLFactor rhs = (JMLFactor) ctx.factor(1).accept(this);
         String op = ctx.op.getText();
-        return new SmallCTerm(lhs,rhs,op);
+        return new JMLTerm(lhs,rhs,op);
     } else {
         visitFactor(ctx.factor(0));
     }
@@ -276,8 +273,8 @@ public class MyVisitor extends SmallCBaseVisitor<SmallCNode> {
 
 }
 
-@Override public SmallCNode visitFactor(SmallCParser.FactorContext ctx) {
+@Override public JMLNode visitFactor(JMLParser.FactorContext ctx) {
         String fc = ctx.getText();
-        return new SmallCFactor(fc);
+        return new JMLFactor(fc);
 }
 
